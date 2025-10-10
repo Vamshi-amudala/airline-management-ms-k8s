@@ -1,22 +1,20 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import sequelize from "./config/db.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import { sequelize } from "./config/db.js";
 
 dotenv.config();
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
-app.use("/bookings", bookingRoutes);
+app.use("/api/bookings", bookingRoutes);
 
-const PORT = process.env.PORT || 4003;
+app.get("/", (req, res) => res.send("🛫 Booking service running"));
 
-sequelize.sync({ alter: true })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Booking Service running on port ${PORT}`));
-  })
-  .catch(err => console.error("DB sync error:", err));
-
+// Sync DB & start server
+sequelize.sync({ alter: true }).then(() => {
+  const PORT = process.env.PORT || 4003;
+  app.listen(PORT, () => console.log(`✅ Booking service running on port ${PORT}`));
+});

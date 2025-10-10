@@ -1,12 +1,11 @@
 import express from "express";
 import {
   getFlights,
+  getFlightById,
   addFlight,
   updateFlight,
   deleteFlight,
-  getFlightById,
 } from "../controllers/flightController.js";
-
 import { authenticateToken, isAdmin } from "../middleware/auth.js";
 
 const router = express.Router();

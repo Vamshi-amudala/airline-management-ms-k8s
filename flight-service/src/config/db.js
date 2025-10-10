@@ -4,11 +4,13 @@ import fs from "fs";
 
 dotenv.config();
 
-const sslOptions = process.env.DB_SSL === "true" ? {
-  rejectUnauthorized: true,
-  ca: fs.readFileSync("./src/config/certs/ca.crt").toString(),
-} : false;
-
+const sslOptions =
+  process.env.DB_SSL === "true"
+    ? {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync("./src/config/certs/ca.crt").toString(),
+      }
+    : false;
 
 export const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -22,3 +24,10 @@ export const sequelize = new Sequelize(
     logging: false,
   }
 );
+
+try {
+  await sequelize.authenticate();
+  console.log("✅ Flight-service DB connected successfully");
+} catch (err) {
+  console.error("❌ Flight-service DB connection error:", err.message);
+}

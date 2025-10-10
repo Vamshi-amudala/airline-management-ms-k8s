@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/", authenticateToken, getBookings);
 router.post("/", authenticateToken, createBooking);
-router.put("/cancel/:id", authenticateToken, cancelBooking);
+router.delete("/:id", authenticateToken, cancelBooking);
 
 export default router;

@@ -11,7 +11,7 @@ export const getFlights = async (req, res) => {
   }
 };
 
-// GET by ID
+// GET flight by ID
 export const getFlightById = async (req, res) => {
   try {
     const flight = await Flight.findByPk(req.params.id);
@@ -34,7 +34,7 @@ export const addFlight = async (req, res) => {
   }
 };
 
-// PUT / update flight
+// PUT/PATCH update flight
 export const updateFlight = async (req, res) => {
   try {
     const flight = await Flight.findByPk(req.params.id);
