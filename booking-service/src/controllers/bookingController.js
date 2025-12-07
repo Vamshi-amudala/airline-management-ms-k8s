@@ -5,7 +5,7 @@ const USER_SERVICE = process.env.USER_SERVICE_URL;
 const FLIGHT_SERVICE = process.env.FLIGHT_SERVICE_URL;
 const NOTIFICATION_SERVICE = process.env.NOTIFICATION_SERVICE_URL;
 
-// GET all bookings
+
 export const getBookings = async (req, res) => {
   try {
     const bookings = await Booking.findAll();
@@ -16,7 +16,7 @@ export const getBookings = async (req, res) => {
   }
 };
 
-// CREATE booking
+
 export const createBooking = async (req, res) => {
   const { flightId, seats } = req.body;
   const userId = req.user.id;
