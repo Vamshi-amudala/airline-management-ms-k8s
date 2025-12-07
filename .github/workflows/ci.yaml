@@ -1,0 +1,45 @@
+name: Node Microservices CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - booking-service
+          - flight-service
+          - notification-service
+          - user-service
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: |
+          cd ${{ matrix.service }}
+          npm install
+
+      - name: Run Tests (optional)
+        run: |
+          cd ${{ matrix.service }}
+          npm test
+        continue-on-error: true  
+
+      - name: Build (optional)
+        run: |
+          cd ${{ matrix.service }}
+          npm run build
+        continue-on-error: true 
